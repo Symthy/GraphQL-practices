@@ -1,0 +1,34 @@
+{
+  "name": "go-nextjs-graphql-template-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "cp-schema": "cp ../backend/graph/schema.graphqls ./graphql/schema.graphql",
+    "graphql-codegen": "graphql-codegen --config ./graphql/codegen-server.yaml",
+    "gen": "yarn run cp-schema && yarn run graphql-codegen"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "graphql": "^16.6.0",
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.11.6",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-graphql-request": "^4.5.3",
+    "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-codegen/typescript-resolvers": "^2.7.3",
+    "@types/node": "18.7.8",
+    "@types/react": "18.0.17",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.22.0",
+    "eslint-config-next": "12.2.5",
+    "typescript": "4.7.4"
+  }
+}

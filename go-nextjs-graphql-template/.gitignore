@@ -1,0 +1,7 @@
+node_modules
+
+backend/graph/generated
+backend/graph/model/models_gen.go
+
+frontend/graphql/dist
+frontend/graphql/schema.graphql

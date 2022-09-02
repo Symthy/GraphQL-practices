@@ -4,20 +4,40 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm.cmd run compile",
+    "pretest": "npm.cmd run compile",
+    "posttest": "npm.cmd run lint",
+    "prisma-gen": "prisma generate",
+    "gql-gen": "graphql-codegen --config codegen.yml",
+    "codegen": "npm run prisma-gen && npm run gql-gen"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.3.0",
+    "@graphql-tools/graphql-file-loader": "^7.5.3",
+    "@graphql-tools/load": "^7.7.5",
+    "@graphql-tools/schema": "^9.0.2",
+    "@prisma/client": "^4.3.1",
     "apollo-server": "^3.10.2",
     "graphql": "^16.6.0"
   },
   "devDependencies": {
-    "@types/node": "^18.7.14",
-    "prisma": "^4.3.0",
+    "@graphql-codegen/cli": "^2.12.0",
+    "@graphql-codegen/typescript": "^2.7.3",
+    "@graphql-codegen/typescript-resolvers": "^2.7.3",
+    "@types/node": "^14.11.2",
+    "gts": "^3.1.0",
+    "prisma": "^4.3.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.2"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.0.3"
   }
 }

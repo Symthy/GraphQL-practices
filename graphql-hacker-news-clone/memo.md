@@ -20,6 +20,26 @@ https://www.apollographql.com/docs/apollo-server/getting-started
 
 - スキーマで定義した Query に実際に値を入れる（解決する）ための関数
 
+typescript 導入で構築するなら以下参照
+
+[Apollo Server with TypeScript](https://zenn.dev/intercept6/articles/3daca0298d32d8022e71)
+
+gts を使用
+
+- gts：Google TypeScript Style という Google 流の TypeScript のガイドラインを ESLint と Prettier の設定としてセットアップしてくれるツール
+
+```
+npm i @graphql-tools/graphql-file-loader @graphql-tools/load @graphql-tools/schema
+```
+
+Graphql codegen のセットアップ
+
+[Apollo ServerとPrismaではじめるGraphQL API 開発入門 - Graphql codegenの環境をセットアップする](https://zenn.dev/eringiv3/books/a85174531fd56a/viewer/382755)
+
+```
+@graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-resolvers
+```
+
 ### prisma
 
 https://www.prisma.io/docs/getting-started/quickstart
@@ -75,3 +95,5 @@ npx prisma generate
 - 実装
 
 https://www.prisma.io/docs/concepts/components/prisma-client/crud
+
+### server 起動

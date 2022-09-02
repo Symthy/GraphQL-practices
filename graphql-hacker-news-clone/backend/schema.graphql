@@ -8,7 +8,7 @@ type Mutation {
 }
 
 type Link {
-  id: ID!
+  id: Int!
   description: String!
   url: String!
 }

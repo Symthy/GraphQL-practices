@@ -1,10 +1,11 @@
-import {prisma} from '../lib/prisma';
-import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
+import {prisma} from '../lib/prisma.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 // eslint-disable-next-line node/no-unpublished-import
-import {MutationResolvers} from '../types/generated/graphql';
-import {APP_SECRET_KEY} from '../config';
-import {buildToken} from '../auth';
+import {MutationResolvers} from '../types/generated/graphql.js';
+import {APP_SECRET_KEY} from '../config/index.js';
+import {buildToken} from '../auth/index.js';
+import {pubsub} from '../lib/pubsub.js';
 
 export const signup: MutationResolvers['signup'] = async (
   parent,
@@ -68,5 +69,7 @@ export const post: MutationResolvers['post'] = async (
       postedBy: {connect: {id: userId}},
     },
   });
+
+  pubsub.publish('NEW_LINK', newLink);
   return newLink;
 };

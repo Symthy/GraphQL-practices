@@ -1,8 +1,7 @@
-import * as Express from 'express'; // eslint-disable-line node/no-extraneous-import
-import * as jwt from 'jsonwebtoken';
-import {APP_SECRET_KEY} from '../config';
-
-export interface TokenInterface {
+import Express from 'express'; // eslint-disable-line node/no-extraneous-import
+import jwt from 'jsonwebtoken';
+import { APP_SECRET_KEY } from '../config/index.js';
+interface TokenInterface {
   userId: number;
 }
 

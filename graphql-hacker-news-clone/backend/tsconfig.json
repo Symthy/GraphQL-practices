@@ -5,5 +5,5 @@
     "outDir": "build",
     "module": "NodeNext",
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "include": ["src/**/*.ts", "src/test/**/*.ts"],
 }

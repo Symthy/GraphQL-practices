@@ -1,11 +1,11 @@
-import {prisma} from '../lib/prisma.js';
+import prisma from '../lib/prisma.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 // eslint-disable-next-line node/no-unpublished-import
 import {MutationResolvers} from '../types/generated/graphql.js';
-import {APP_SECRET_KEY} from '../config/index.js';
 import {buildToken} from '../auth/index.js';
 import {pubsub} from '../lib/pubsub.js';
+import {findUniqueUser} from '../repository/userPrismaRepository.js';
+import {createLink} from '../repository/linkPrismaRepository.js';
 
 export const signup: MutationResolvers['signup'] = async (
   parent,
@@ -34,10 +34,8 @@ export const login: MutationResolvers['login'] = async (
   context,
   info
 ) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      email: args.email,
-    },
+  const user = await findUniqueUser({
+    email: args.email,
   });
 
   if (!user) {
@@ -48,7 +46,7 @@ export const login: MutationResolvers['login'] = async (
     throw new Error('Invalid password');
   }
 
-  const token = jwt.sign({userId: user.id}, APP_SECRET_KEY);
+  const token = buildToken(user);
   return {
     token,
     user,
@@ -61,14 +59,7 @@ export const post: MutationResolvers['post'] = async (
   context,
   info
 ) => {
-  const userId = context.userId;
-  const newLink = prisma.link.create({
-    data: {
-      url: args.url,
-      description: args.description,
-      postedBy: {connect: {id: userId}},
-    },
-  });
+  const newLink = await createLink(args, context.userId);
 
   pubsub.publish('NEW_LINK', newLink);
   return newLink;

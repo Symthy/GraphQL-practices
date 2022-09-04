@@ -1,31 +1,31 @@
-import {describe, expect, test} from '@jest/globals';
+import {describe, expect, test} from '@jest/globals'; // eslint-disable-line node/no-extraneous-import
 import prisma from '../lib/prisma.js';
 
-import { prismaMock } from './singleton.js'
+import {prismaMock} from './singleton.js';
 
 interface CreateUser {
-  name: string
-  email: string
-  password: string
+  name: string;
+  email: string;
+  password: string;
 }
 
 export async function createUser(user: CreateUser) {
   return await prisma.user.create({
     data: user,
-  })
+  });
 }
 
 interface UpdateUser {
-  id: number
-  name: string
-  email: string
+  id: number;
+  name: string;
+  email: string;
 }
 
 export async function updateUsername(user: UpdateUser) {
   return await prisma.user.update({
-    where: { id: user.id },
+    where: {id: user.id},
     data: user,
-  })
+  });
 }
 
 describe('prisma test sample', () => {
@@ -35,17 +35,17 @@ describe('prisma test sample', () => {
       name: 'Rich',
       email: 'hello@prisma.io',
       password: 'password',
-    }
+    };
 
-    prismaMock.user.create.mockResolvedValue(user)
-  
+    prismaMock.user.create.mockResolvedValue(user);
+
     await expect(createUser(user)).resolves.toEqual({
       id: 1,
       name: 'Rich',
       email: 'hello@prisma.io',
       password: 'password',
-    })
-  })
+    });
+  });
 
   test('should update a users name ', async () => {
     const user = {
@@ -53,15 +53,15 @@ describe('prisma test sample', () => {
       name: 'Rich Haines',
       email: 'hello@prisma.io',
       password: 'password',
-    }
-  
-    prismaMock.user.update.mockResolvedValue(user)
-  
+    };
+
+    prismaMock.user.update.mockResolvedValue(user);
+
     await expect(updateUsername(user)).resolves.toEqual({
       id: 1,
       name: 'Rich Haines',
       email: 'hello@prisma.io',
       password: 'password',
-    })
-  })
-})
+    });
+  });
+});

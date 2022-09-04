@@ -1,4 +1,4 @@
-import {prisma} from '../lib/prisma.js';
+import {findPostedUserByLink} from '../repository/userLinkRelQueryService.js';
 import {LinkResolvers} from '../types/generated/graphql.js'; // eslint-disable-line node/no-unpublished-import
 
 export const postedBy: LinkResolvers['postedBy'] = (
@@ -7,10 +7,7 @@ export const postedBy: LinkResolvers['postedBy'] = (
   context,
   info
 ) => {
-  const link = prisma.link
-    .findUnique({
-      where: {id: parent.id},
-    })
-    .postedBy();
-  return link;
+  const linkId = parent.id;
+  const user = findPostedUserByLink(linkId);
+  return user;
 };

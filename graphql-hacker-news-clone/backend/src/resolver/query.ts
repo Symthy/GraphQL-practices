@@ -1,5 +1,5 @@
-import {prisma} from '../lib/prisma.js';
 import {QueryResolvers} from '../types/generated/graphql.js'; // eslint-disable-line node/no-unpublished-import
+import {getLinks} from '../repository/linkPrismaRepository.js';
 
 export const info: QueryResolvers['info'] = async (
   parent,
@@ -16,6 +16,6 @@ export const feed: QueryResolvers['feed'] = async (
   context,
   info
 ) => {
-  const links = await prisma.link.findMany();
+  const links = await getLinks();
   return links;
 };

@@ -18,7 +18,7 @@
     "prisma-gen": "prisma generate",
     "gql-gen": "graphql-codegen --config codegen.yml",
     "codegen": "npm run prisma-gen && npm run gql-gen",
-    "prisma-st": "prisma studio"
+    "prisma-view": "prisma studio"
   },
   "keywords": [],
   "author": "",

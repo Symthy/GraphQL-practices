@@ -6,6 +6,10 @@ import {buildToken} from '../auth/index.js';
 import {pubsub} from '../lib/pubsub.js';
 import {findUniqueUser} from '../repository/userPrismaRepository.js';
 import {createLink} from '../repository/linkPrismaRepository.js';
+import {
+  createVote,
+  findUniqueVote,
+} from '../repository/votePrismaRepository.js';
 
 export const signup: MutationResolvers['signup'] = async (
   parent,
@@ -63,4 +67,26 @@ export const post: MutationResolvers['post'] = async (
 
   pubsub.publish('NEW_LINK', newLink);
   return newLink;
+};
+
+export const vote: MutationResolvers['vote'] = async (
+  parent,
+  args,
+  context,
+  info
+) => {
+  const vote = await findUniqueVote({
+    linkId: args.linkId,
+    userId: context.userId,
+  });
+  if (vote) {
+    throw new Error(`2重投票はできません: ${args.linkId}`);
+  }
+
+  const newVote = await createVote({
+    linkId: args.linkId,
+    userId: context.userId,
+  });
+  pubsub.publish('NEW_VOTE', newVote);
+  return newVote;
 };

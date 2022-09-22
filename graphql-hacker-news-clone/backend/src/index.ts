@@ -12,7 +12,7 @@ import {makeExecutableSchema} from '@graphql-tools/schema';
 import {WebSocketServer} from 'ws';
 import {useServer} from 'graphql-ws/lib/use/ws';
 import express from 'express'; // eslint-disable-line node/no-extraneous-import
-import { resolvers } from './resolver/index.js';
+import {resolvers} from './resolver/index.js';
 
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';

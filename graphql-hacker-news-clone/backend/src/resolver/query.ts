@@ -10,12 +10,7 @@ export const info: QueryResolvers['info'] = async (
   return 'Hack News Clone';
 };
 
-export const feed: QueryResolvers['feed'] = async (
-  parent,
-  args,
-  context,
-  info
-) => {
-  const links = await getLinks();
+export const feed: QueryResolvers['feed'] = (parent, args, context, info) => {
+  const links = getLinks();
   return links;
 };

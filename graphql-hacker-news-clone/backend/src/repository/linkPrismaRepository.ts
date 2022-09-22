@@ -1,8 +1,8 @@
 import {Link} from '@prisma/client';
 import prisma from '../lib/prisma.js';
 
-export const getLinks = async (): Promise<Link[]> => {
-  const links = await prisma.link.findMany();
+export const getLinks = () => {
+  const links = prisma.link.findMany();
   return links;
 };
 
@@ -24,4 +24,12 @@ export const createLink = (args: CreateLink, userId: number) => {
     },
   });
   return link;
+};
+
+export const findLinkByVote = (voteId: number) => {
+  return prisma.vote
+    .findUnique({
+      where: {id: voteId},
+    })
+    .link();
 };

@@ -18,9 +18,17 @@ type CreateUser = {
   password: string;
 };
 
-export const createUser = async (args: CreateUser) => {
+export const createUser = (args: CreateUser) => {
   const user = prisma.user.create({
     data: args,
   });
   return user;
+};
+
+export const findUserByVote = (voteId: number) => {
+  return prisma.vote
+    .findUnique({
+      where: {id: voteId},
+    })
+    .user();
 };

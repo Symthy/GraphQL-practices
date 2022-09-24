@@ -32,3 +32,14 @@ export const findUserByVote = (voteId: number) => {
     })
     .user();
 };
+
+export const findPostedUserByLink = (linkId: number) => {
+  const user = prisma.link
+    .findUnique({
+      where: {
+        id: linkId,
+      },
+    })
+    .postedBy();
+  return user;
+};

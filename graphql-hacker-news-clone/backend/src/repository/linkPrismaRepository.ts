@@ -1,5 +1,9 @@
-import {Link} from '@prisma/client';
+import {Link, Prisma} from '@prisma/client';
 import prisma from '../lib/prisma.js';
+
+interface LinkRepository {
+  getLinks(): Prisma.Prisma__LinkClient<Link | null>;
+}
 
 export const getLinks = () => {
   const links = prisma.link.findMany();
@@ -32,4 +36,15 @@ export const findLinkByVote = (voteId: number) => {
       where: {id: voteId},
     })
     .link();
+};
+
+export const findLinksByUser = (userId: number) => {
+  const links = prisma.user
+    .findUnique({
+      where: {
+        id: userId,
+      },
+    })
+    .links();
+  return links;
 };

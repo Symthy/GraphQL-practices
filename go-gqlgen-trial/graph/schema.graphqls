@@ -12,6 +12,13 @@ type Todo {
 type User {
   id: ID!
   name: String!
+  profile: Profile!
+  friends: User
+}
+
+type Profile {
+  summary: String!
+  detail: String!
 }
 
 type Query {

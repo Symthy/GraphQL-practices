@@ -28,4 +28,44 @@ import (
 go run github.com/99designs/gqlgen init
 ```
 
-graph フォルダができ、基本セット(schema.graphqls やコード)が生成される
+graph フォルダができ、雛形(schema.graphqls やコード)が生成される
+
+再生成は以下
+
+```
+go install github.com/99designs/gqlgen
+gqlgen
+```
+
+### オーバーフェッチ対策
+
+指定のフィールドが、リクエストに含まれる時のみ呼ばれるメソッド（リゾルバー）を用意可能。それにより無駄な DB フェッチが走らないよう実装ができる
+
+- gqlgen.yml への記載による明示的な生成方法
+
+```graphql
+type User {
+  id: ID!
+  name: String!
+  profile: Profile!
+  friends: User # 追加
+}
+```
+
+```yaml
+# gqlgen.yml
+models:
+  # : (ry
+  User:
+    fields:
+      friends:
+        resolver: true # 追加
+```
+
+リゾルバが自動生成される
+
+```go
+type UserResolver interface {
+	Friends(ctx context.Context, obj *model.User) (*model.User, error)
+}
+```
